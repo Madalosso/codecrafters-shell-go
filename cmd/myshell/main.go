@@ -104,7 +104,7 @@ func main() {
 				if err != nil {
 					log.Fatal(err)
 				}
-				fmt.Println(string(output))
+				fmt.Printf(string(output))
 			}
 		} else {
 			fn(args)
