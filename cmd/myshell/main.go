@@ -42,7 +42,7 @@ func typeHandler(args []string) {
 	cmdName := args[1]
 	isBuiltIn := IsBuiltIn(cmdName)
 	if isBuiltIn {
-		fmt.Printf("%s is a shell %s\n", cmdName, "builtin")
+		fmt.Fprintf(os.Stdout, "%s is a shell %s\n", cmdName, "builtin")
 	} else {
 
 		// search in pathDirs for matching cmdName
@@ -52,10 +52,10 @@ func typeHandler(args []string) {
 		pathToBin, err := checkOsCmd(pathDirs, cmdName)
 		if err != nil {
 			// fmt.Printf("%s: %s\n", cmdName, err)
-			fmt.Printf("%s: command not found\n", cmdName)
+			fmt.Fprintf(os.Stdout, "%s: command not found\n", cmdName)
 
 		} else {
-			fmt.Printf("%s is %s\n", cmdName, pathToBin)
+			fmt.Fprintf(os.Stdout, "%s is %s\n", cmdName, pathToBin)
 		}
 
 	}
@@ -83,8 +83,7 @@ var commands = map[string]func(args []string){
 func main() {
 	for {
 		// Wait for user input
-		// fmt.Fprint(os.Stdout, "$ ")
-		fmt.Printf("$ ")
+		fmt.Fprint(os.Stdout, "$ ")
 		rawInput, _ := bufio.NewReader(os.Stdin).ReadString('\n')
 		inputLine := rawInput[:len(rawInput)-1]
 		args := strings.Split(inputLine, " ")
@@ -92,7 +91,7 @@ func main() {
 		commandName := args[0]
 		fn, ok := commands[commandName]
 		if !ok {
-			fmt.Printf("%s: command not found\n", commandName)
+			fmt.Fprintf(os.Stdout, "%s: command not found\n", commandName)
 		} else {
 			fn(args)
 		}
