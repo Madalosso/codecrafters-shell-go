@@ -8,6 +8,23 @@ import (
 	"strings"
 )
 
+type SupportedCommands string
+
+const (
+	Exit SupportedCommands = "exit"
+	Echo SupportedCommands = "echo"
+	Type SupportedCommands = "type"
+)
+
+func IsBuiltIn(commandName string) bool {
+	switch SupportedCommands(commandName) {
+	case Exit, Echo, Type:
+		return true
+	default:
+		return false
+	}
+}
+
 var commands = map[string]func(args []string){
 	"exit": func(args []string) {
 		codeStatus, err := strconv.Atoi(args[1])
@@ -18,6 +35,16 @@ var commands = map[string]func(args []string){
 	},
 	"echo": func(args []string) {
 		fmt.Println(strings.Join(args[1:], " "))
+	},
+	"type": func(args []string) {
+		cmdName := args[1]
+		isBuiltIn := IsBuiltIn(cmdName)
+		if isBuiltIn {
+			fmt.Printf("%s is a shell %s\n", cmdName, "builtin")
+		} else {
+			fmt.Printf("%s not found\n", cmdName)
+
+		}
 	},
 }
 
