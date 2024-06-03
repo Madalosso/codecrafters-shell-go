@@ -83,7 +83,8 @@ var commands = map[string]func(args []string){
 func main() {
 	for {
 		// Wait for user input
-		fmt.Fprint(os.Stdout, "$ ")
+		// fmt.Fprint(os.Stdout, "$ ")
+		fmt.Println("$ ")
 		rawInput, _ := bufio.NewReader(os.Stdin).ReadString('\n')
 		inputLine := rawInput[:len(rawInput)-1]
 		args := strings.Split(inputLine, " ")
