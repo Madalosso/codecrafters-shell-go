@@ -12,6 +12,12 @@ func main() {
 		fmt.Fprint(os.Stdout, "$ ")
 		input, _ := bufio.NewReader(os.Stdin).ReadString('\n')
 		commandName := input[:len(input)-1]
-		fmt.Printf("%s: command not found\n", commandName)
+
+		switch commandName {
+		case "exit":
+			os.Exit(0)
+		default:
+			fmt.Printf("%s: command not found\n", commandName)
+		}
 	}
 }
