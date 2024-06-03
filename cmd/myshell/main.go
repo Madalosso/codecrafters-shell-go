@@ -91,7 +91,7 @@ func main() {
 		commandName := args[0]
 		fn, ok := commands[commandName]
 		if !ok {
-			fmt.Fprintf(os.Stdout, "%s: command not found\n", commandName)
+			fmt.Fprintf(os.Stdout, "%s: not found\n", commandName)
 		} else {
 			fn(args)
 		}
