@@ -51,7 +51,9 @@ func typeHandler(args []string) {
 		pathDirs := strings.Split(path, ":")
 		pathToBin, err := checkOsCmd(pathDirs, cmdName)
 		if err != nil {
-			fmt.Printf("%s: %s\n", cmdName, err)
+			// fmt.Printf("%s: %s\n", cmdName, err)
+			fmt.Printf("%s: command not found\n", cmdName)
+
 		} else {
 			fmt.Printf("%s is %s\n", cmdName, pathToBin)
 		}
@@ -68,6 +70,7 @@ func checkOsCmd(pathDirs []string, cmd string) (string, error) {
 		}
 	}
 	return "", fmt.Errorf("command not found")
+	// return "", fmt.Errorf("command not found")
 
 }
 
