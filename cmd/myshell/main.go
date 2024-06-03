@@ -17,11 +17,12 @@ const (
 	Exit SupportedCommands = "exit"
 	Echo SupportedCommands = "echo"
 	Type SupportedCommands = "type"
+	Pwd  SupportedCommands = "pwd"
 )
 
 func IsBuiltIn(commandName string) bool {
 	switch SupportedCommands(commandName) {
-	case Exit, Echo, Type:
+	case Exit, Echo, Type, Pwd:
 		return true
 	default:
 		return false
@@ -79,6 +80,13 @@ var commands = map[string]func(args []string){
 	"exit": exitHandler,
 	"echo": echoHandler,
 	"type": typeHandler,
+	"pwd": func(args []string) {
+		pwd, err := os.Getwd()
+		if err != nil {
+			fmt.Printf("Error getting working dir")
+		}
+		fmt.Fprintln(os.Stdout, pwd)
+	},
 }
 
 func main() {
