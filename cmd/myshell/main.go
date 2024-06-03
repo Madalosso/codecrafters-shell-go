@@ -69,7 +69,7 @@ func checkOsCmd(pathDirs []string, cmd string) (string, error) {
 			return filePath, nil
 		}
 	}
-	return "", fmt.Errorf("command not found")
+	return "", fmt.Errorf("not found")
 	// return "", fmt.Errorf("command not found")
 
 }
