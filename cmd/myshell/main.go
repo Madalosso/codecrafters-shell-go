@@ -3,7 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -90,7 +92,20 @@ func main() {
 		commandName := args[0]
 		fn, ok := commands[commandName]
 		if !ok {
-			fmt.Fprintf(os.Stdout, "%s: not found\n", commandName)
+			path := os.Getenv("PATH")
+			pathDirs := strings.Split(path, ":")
+			pathToBin, err := checkOsCmd(pathDirs, commandName)
+			if err != nil {
+				// fmt.Printf("%s: %s\n", commandName, err)
+				fmt.Fprintf(os.Stdout, "%s: not found\n", commandName)
+			} else {
+				cmd := exec.Command(pathToBin, args[1:]...)
+				output, err := cmd.Output()
+				if err != nil {
+					log.Fatal(err)
+				}
+				fmt.Println(string(output))
+			}
 		} else {
 			fn(args)
 		}
