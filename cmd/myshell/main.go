@@ -24,6 +24,8 @@ func main() {
 				fmt.Println("Invalid exit code:", args[1], err)
 			}
 			os.Exit(codeStatus)
+		case "echo":
+			fmt.Println(strings.Join(args[1:], " "))
 		default:
 			fmt.Printf("%s: command not found\n", commandName)
 		}
