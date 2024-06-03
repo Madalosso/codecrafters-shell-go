@@ -92,7 +92,13 @@ var commands = map[string]func(args []string){
 }
 
 func cdHandler(args []string) {
+	const HOME_IDENTIFIER = '~'
 	newDirPath := args[1]
+
+	if newDirPath == string(HOME_IDENTIFIER) {
+		newDirPath = os.Getenv("HOME")
+	}
+
 	err := os.Chdir(newDirPath)
 	if err != nil {
 		fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", newDirPath)
