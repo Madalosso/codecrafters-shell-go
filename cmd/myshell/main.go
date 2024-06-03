@@ -18,11 +18,12 @@ const (
 	Echo SupportedCommands = "echo"
 	Type SupportedCommands = "type"
 	Pwd  SupportedCommands = "pwd"
+	Cd   SupportedCommands = "cd"
 )
 
 func IsBuiltIn(commandName string) bool {
 	switch SupportedCommands(commandName) {
-	case Exit, Echo, Type, Pwd:
+	case Exit, Echo, Type, Pwd, Cd:
 		return true
 	default:
 		return false
@@ -87,6 +88,15 @@ var commands = map[string]func(args []string){
 		}
 		fmt.Fprintln(os.Stdout, pwd)
 	},
+	"cd": cdHandler,
+}
+
+func cdHandler(args []string) {
+	newDirPath := args[1]
+	err := os.Chdir(newDirPath)
+	if err != nil {
+		fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", newDirPath)
+	}
 }
 
 func main() {
