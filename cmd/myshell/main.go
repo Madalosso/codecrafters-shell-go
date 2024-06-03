@@ -84,7 +84,7 @@ func main() {
 	for {
 		// Wait for user input
 		// fmt.Fprint(os.Stdout, "$ ")
-		fmt.Println("$ ")
+		fmt.Printf("$ ")
 		rawInput, _ := bufio.NewReader(os.Stdin).ReadString('\n')
 		inputLine := rawInput[:len(rawInput)-1]
 		args := strings.Split(inputLine, " ")
