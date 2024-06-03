@@ -14,7 +14,7 @@ func main() {
 		fmt.Fprint(os.Stdout, "$ ")
 		rawInput, _ := bufio.NewReader(os.Stdin).ReadString('\n')
 		inputLine := rawInput[:len(rawInput)-1]
-		args := strings.Split(inputLine, "")
+		args := strings.Split(inputLine, " ")
 
 		commandName := args[0]
 		switch commandName {
